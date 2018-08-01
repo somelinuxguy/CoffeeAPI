@@ -1,0 +1,49 @@
+body {
+    font-family: sans-serif;
+    background: #000000;
+    color: white;
+    margin: 0;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    background-image: url("nyarlathotep.jpg");
+    color: #ff2119;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 2em;
+}
+
+.formBox {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    border: 1px solid purple;
+    margin-bottom: 1em;
+}
+
+.formItem {
+    padding: 1em;
+}
+
+.formTitle {
+    font-size: 1.5em;
+}
+
+.currentOrders {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.order {
+    display: flex;
+    justify-content: center;
+    width: 250px;
+    border: 1px solid white;
+    padding: 10px;
+}

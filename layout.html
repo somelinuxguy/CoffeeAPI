@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Nyarlathotep's Coffee Cafe</title> 
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+</head>
+
+<body>
+    <div class="header">
+    <h1>The stars are right!</h1>
+    <h2>Summon The Hoary Vile Coffee Beast!</h2>
+    </div>
+
+    <form action="" class="formBox">
+        <div class="formItem">
+        <label>
+            <span class="formlabel">How Shall the Old Gods Know You: </span>
+            <input name="myName" placeholder="Howard Phillip Lovecraft" required autofocus>
+        </label>
+        </div>
+
+        <div class="formItem">
+        <label>
+            <span class="formlabel">Name your Dimension/Planet: </span>
+            <input name="myLocation" placeholder="Yuggoth" required>
+        </label>
+        </div>
+
+        <div class="formItem">
+            <span class="forlabel">Size of your Mi'go brain jar:</span><br/>
+            <label>
+            <input type="radio" name="size" value="American" checked />
+                American
+            </label> <br/>
+            <label>
+                <input type="radio" name="size" value="Small" />
+                Small
+            </label> <br/>
+            <label>
+                <input type="radio" name="size" value="Medium" />
+                Medium
+            </label> <br/>
+            <label>
+                <input type="radio" name="size" value="German" />
+                German Philosopher
+            </label>
+        </div>
+
+        <div class="formItem">
+            <label>
+            Please Specify Coffee Adulterants: <br/>
+            <select id="coffeeState" name="state">
+                <option value="">None</option>
+                <option value="Squamous Tissue">Squamous Tissue</option>
+                <option value="Gibbering Horror">Gibbering Horror</option>
+                <option value="Stygian Darkness">Stygian Darkness</option>
+                <option value="Gelatinous Pustulence">Gelatinous Pustulence</option>
+                <option value="Nameless Beings">Republicans</option>
+            </select>
+            </label>
+        </div>
+
+        <div class="formItem">
+            <label>
+            How many cultists shall die for your beverage? <br/>
+            <input name="numberOfCultists" type="range" value="32">
+            </label>
+        </div>
+
+        <div class="formItem">
+        <!-- submit handler -->
+        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="reset" class="btn btn-default">Clear Order</button>
+        </div>
+    </form>
+
+    <div class="orderContainer">
+        <h2>Arcane Depredations - Reveal Libations:</h2>
+        <div class="currentOrders">
+        <!-- order here -->
+        </div>
+    </div>
+    
+</body>
+</html>
