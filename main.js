@@ -34,22 +34,15 @@ var populateOrderPage = function(orderList) {
         var orderDIV = document.createElement('div');
         var orderP = document.createElement('p');
         orderDIV.classList.add('order');
-        const templateStr = `Name: ${order.emailAddress} 
-        Flavor: ${order.flavor} 
-        Size: ${order.size} 
-        Strength: ${order.strength}`;
-        orderP.textContent = templateStr;
+        //fill the elements
+
+        // add them to the DOM
         orderDIV.appendChild(orderP);
         container.appendChild(orderDIV);
         // remove order event handler
         var removeOrder = function(event) {
             console.log('remove item: ' + order);
-            // this doesnt find the position of the order.name KEY in the array.
-            var index = orderList.indexOf(order);
-            if (index !== -1) {
-                orderList.splice(index, 1);
-            };
-            // therefore - remove order from orderList
+            // find which order to remove
             saveOrder(orderList);
             populateOrderPage(orderList);
         };
@@ -57,6 +50,7 @@ var populateOrderPage = function(orderList) {
     });
 }
 
+// TODO: out of spec for the API
 var newOrder = function(event) {
     event.preventDefault();
     console.log('New Order In.');
@@ -67,8 +61,6 @@ var newOrder = function(event) {
         name: myName.value,
         location: myLocation.value,
         size: mySize.value,
-        adulterant: myAdulterant.value,
-        cultists: myCultists.value,
         };
     orderList.push(orderInfo);
     //saveOrder(orderList);

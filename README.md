@@ -1,4 +1,4 @@
-# CoffeeAndMadness
+# Coffee And Madness - now with AJAX
 Ia! Ia! Let's get some coffee.
 
 What if the coffee thing talked to an API server instead of talking to localStorage
