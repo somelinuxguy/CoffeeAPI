@@ -26,7 +26,7 @@ var loadOrders = function(orderList) {
 var removeOrderAPI = function(order) {
     $.ajax({
         method: "DELETE",
-        url: `http://dc-coffeerun.herokuapp.com/api/coffeeorders/${order.emailAddress}`
+        url: `${apiURL}${order.emailAddress}`
     })
     .done(function() {
         console.log('Order deleted: ' + order.emailAddress);
@@ -34,11 +34,16 @@ var removeOrderAPI = function(order) {
     });
 }
 
-// method: DELETE
-// http://dc-coffeerun.herokuapp.com/api/coffeeorders/$email
-
-var saveOrder = function(orderList) {
-    console.log("goaway");
+var saveOrder = function(orderInfo) {
+    console.log('saving order: ' + orderInfo.emailAddress);
+    $.ajax({
+        method: "POST",
+        url: `${apiURL}`,
+        data: orderInfo
+    })
+    .done(function() {
+        loadOrders();
+    });
 }
 
 var clearDisplay = function() {
@@ -80,17 +85,20 @@ var populateOrderPage = function(orderList) {
 var newOrder = function(event) {
     event.preventDefault();
     console.log('New Order In.');
-    var myName = document.querySelector('[name="myName"]');
-    var myLocation = document.querySelector('[name="myLocation"]');
+    var myEmail = document.querySelector('[name="emailAddress"]');
+    var myCoffee = document.querySelector('[name="coffee"]');
+    var myFlavor = document.querySelector('[name="flavor"]');
+    var myStrength = document.querySelector('[name="strength"]');
     var mySize = document.querySelector('[name="size"]:checked');
     var orderInfo = {
-        name: myName.value,
-        location: myLocation.value,
-        size: mySize.value,
+        emailAddress: myEmail.value,
+        coffee: myCoffee.value,
+        flavor: myFlavor.value,
+        strength: myStrength.value,
+        size: mySize.value
         };
-    orderList.push(orderInfo);
-    //saveOrder(orderList);
-    //populateOrderPage(orderList);
+    console.log(orderInfo);
+    saveOrder(orderInfo);
 }
 // -- main -- //
 var orderList = [];
