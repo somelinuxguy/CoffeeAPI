@@ -1,14 +1,41 @@
-var loadOrders = function() {
+var convertToArray = function(data, orderList) {
+    Object.values(data).forEach(function(order) {
+        console.log('Push order to order list: ' + order.emailAddress)
+        orderList.push(order);
+    });
+    console.log('Converted to array...');
+    console.log(orderList);
+}
+
+var loadOrders = function(orderList) {
+    orderList= [];
     console.log('loading saved orders...');
-    $.ajax(URL,
+    $.ajax(apiURL,
     {
-        success: function(orderList) {
-            console.log(orderList);
-            clearDisplay();
+        success: function(data) {
+            console.log(data);
+            convertToArray(data, orderList);
             populateOrderPage(orderList);
+        },
+        error: function() {
+            console.log("NO COFFEE 4 U! API server error.");
         }
     });
 }
+
+var removeOrderAPI = function(order) {
+    $.ajax({
+        method: "DELETE",
+        url: `http://dc-coffeerun.herokuapp.com/api/coffeeorders/${order.emailAddress}`
+    })
+    .done(function() {
+        console.log('Order deleted: ' + order.emailAddress);
+        loadOrders(orderList);
+    });
+}
+
+// method: DELETE
+// http://dc-coffeerun.herokuapp.com/api/coffeeorders/$email
 
 var saveOrder = function(orderList) {
     console.log("goaway");
@@ -23,29 +50,28 @@ var clearDisplay = function() {
 }
 
 var populateOrderPage = function(orderList) {
-    console.log("Populating Orders Page");
     console.log(orderList);
-    var container = document.querySelector(".currentOrders");
-    // nuke currentOrders div
+    console.log("Populating Orders Page");
     clearDisplay();
+
+    var container = document.querySelector(".currentOrders");
     // write the orders in to the new currentOrders div (named container)
-    Object.values(orderList).forEach(function(order) {
-        console.log("Adding order to page: " + order.emailAddress);
+    orderList.forEach(function(order) {
         var orderDIV = document.createElement('div');
         var orderP = document.createElement('p');
         orderDIV.classList.add('order');
         //fill the elements
-
+        const templateStr = `Email: ${order.emailAddress} Strength: ${order.strength} Size: ${order.size} Adulterants: ${order.flavor} Coffee: ${order.coffee}`;
+        orderP.textContent = templateStr;
         // add them to the DOM
         orderDIV.appendChild(orderP);
         container.appendChild(orderDIV);
         // remove order event handler
+
         var removeOrder = function(event) {
-            console.log('remove item: ' + order);
-            // find which order to remove
-            saveOrder(orderList);
-            populateOrderPage(orderList);
+            removeOrderAPI(order);
         };
+
         orderDIV.addEventListener('click',removeOrder);
     });
 }
@@ -67,15 +93,10 @@ var newOrder = function(event) {
     //populateOrderPage(orderList);
 }
 // -- main -- //
-const URL="http://dc-coffeerun.herokuapp.com/api/coffeeorders/";
-
+var orderList = [];
+const apiURL="http://dc-coffeerun.herokuapp.com/api/coffeeorders/";
 var myForm = document.querySelector(".formBox");
-var orderList = loadOrders();
-if (orderList == null) {
-    orderList = [];
-}
-else {
-    populateOrderPage(orderList);
-}
+
+loadOrders();
 
 myForm.addEventListener('submit', newOrder);
